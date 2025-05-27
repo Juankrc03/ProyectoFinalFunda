@@ -36,16 +36,19 @@ struct Alumno {
 int preguntarCantidadAlumnos() {
     int cantidad;
     
-    // PASO 1: Mostrar mensaje "¿Cuántos alumnos desea evaluar?"
-    // PASO 2: Leer el número que escriba el usuario
-    // PASO 3: Si el número es menor o igual a 0, mostrar error y preguntar de nuevo
-    // PASO 4: Retornar el número válido
+    do {
+         cout << "¿Cuántos alumnos desea evaluar? ";
+        cin >> cantidad;
+
+        if (cantidad <= 0) {
+          cout << "Error, tienes que ingresar minimo un alumno";
+
+        }
+           
+    } while (cantidad <=0);
     
-    cout << "¿Cuántos alumnos desea evaluar? ";
-    cin >> cantidad;
     
-    // AQUÍ FALTA: validar que cantidad > 0
-    
+  
     return cantidad;
 }
 
