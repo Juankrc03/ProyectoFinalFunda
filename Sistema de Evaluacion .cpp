@@ -52,21 +52,59 @@ int preguntarCantidadAlumnos() {
     return cantidad;
 }
 
-// Función 2: Pedir datos personales de un alumno
+// Función 2: Pedir datos personales de un alumno - COMPLETADA POR JUAN
 void pedirDatosPersonales(Alumno &estudiante) {
     // PASO 1: Pedir primer nombre y guardarlo en estudiante.nombre1
-    // PASO 2: Pedir primer apellido y guardarlo en estudiante.apellido1  
-    // PASO 3: Pedir segundo apellido y guardarlo en estudiante.apellido2
-    // PASO 4: Pedir ciclo y guardarlo en estudiante.ciclo
-    // PASO 5: Pedir cédula y guardarla en estudiante.cedula
-    
     cout << "Primer nombre: ";
-    // AQUÍ FALTA: leer el nombre
+    cin >> estudiante.nombre1;
     
+    // Validación básica para nombre (no debe estar vacío)
+    while (estudiante.nombre1.empty()) {
+        cout << "Error: El nombre no puede estar vacío. Ingrese el primer nombre: ";
+        cin >> estudiante.nombre1;
+    }
+    
+    // PASO 2: Pedir primer apellido y guardarlo en estudiante.apellido1
     cout << "Primer apellido: ";
-    // AQUÍ FALTA: leer el apellido
+    cin >> estudiante.apellido1;
     
-    // COMPLETAR LOS DEMÁS DATOS...
+    // Validación básica para primer apellido
+    while (estudiante.apellido1.empty()) {
+        cout << "Error: El apellido no puede estar vacío. Ingrese el primer apellido: ";
+        cin >> estudiante.apellido1;
+    }
+    
+    // PASO 3: Pedir segundo apellido y guardarlo en estudiante.apellido2
+    cout << "Segundo apellido: ";
+    cin >> estudiante.apellido2;
+    
+    // Validación básica para segundo apellido
+    while (estudiante.apellido2.empty()) {
+        cout << "Error: El segundo apellido no puede estar vacío. Ingrese el segundo apellido: ";
+        cin >> estudiante.apellido2;
+    }
+    
+    // PASO 4: Pedir ciclo y guardarlo en estudiante.ciclo
+    do {
+        cout << "Ciclo (1-12): ";
+        cin >> estudiante.ciclo;
+        
+        if (estudiante.ciclo < 1 || estudiante.ciclo > 12) {
+            cout << "Error: El ciclo debe estar entre 1 y 12." << endl;
+        }
+    } while (estudiante.ciclo < 1 || estudiante.ciclo > 12);
+    
+    // PASO 5: Pedir cédula y guardarla en estudiante.cedula
+    do {
+        cout << "Cédula (número positivo): ";
+        cin >> estudiante.cedula;
+        
+        if (estudiante.cedula <= 0) {
+            cout << "Error: La cédula debe ser un número positivo." << endl;
+        }
+    } while (estudiante.cedula <= 0);
+    
+    cout << "Datos personales ingresados correctamente." << endl;
 }
 
 // Función 3: Pedir las 5 notas de exámenes
@@ -202,27 +240,38 @@ int main() {
 /*
 TAREAS SIMPLES PARA COMPLETAR:
 
-1. En preguntarCantidadAlumnos(): Torti
-   - Agregar validación: si cantidad <= 0, mostrar error y preguntar de nuevo
+1. En preguntarCantidadAlumnos(): Torti 🔄
+   - Mejorar mensaje de error y formato
+   - Ya funciona pero falta pulir
 
-2. En pedirDatosPersonales():Juan
-   - Completar cin >> para cada dato personal
-   - Agregar validaciones básicas
+2. En pedirDatosPersonales(): Juan ✅ COMPLETADO
+   - Función completamente terminada con validaciones
+   - LISTO PARA USAR
 
-3. En pedirNotas(): Alison
+3. En pedirNotas(): Alison ❌
    - Completar las notas que faltan (nota3, nota4, nota5)
    - Agregar validación: si nota < 0 o nota > 100, mostrar error
 
-4. En calcularPromedio(): Torti
+4. En calcularPromedio(): Torti ❌
    - Completar la suma con todas las 5 notas
+   - Ahora solo suma 2 notas
 
-5. En mostrarAprobados() y mostrarReprobados(): Alison
+5. En mostrarAprobados() y mostrarReprobados(): Alison ❌
    - Completar el formato de salida con todos los datos
+   - Falta mostrar ciclo, cédula y promedio formateado
    
-6. Menu y estilo: Juan
+6. Menu y estilo: Juan ❌
    - Agregar colores a los mensajes
    - Hacer la interfaz más bonita
-   
+
+ESTADO ACTUAL:
+✅ pedirDatosPersonales() - COMPLETADA (Juan)
+✅ preguntarCantidadAlumnos() - FUNCIONA (Torti, falta pulir)
+❌ pedirNotas() - PENDIENTE (Alison)
+❌ calcularPromedio() - PENDIENTE (Torti)
+❌ mostrarAprobados() - PENDIENTE (Alison)
+❌ mostrarReprobados() - PENDIENTE (Alison)
+❌ Mejoras de interfaz - PENDIENTE (Juan)
 
 CONSEJOS:
 - Completar una función a la vez
