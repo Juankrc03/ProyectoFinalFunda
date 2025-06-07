@@ -107,23 +107,59 @@ void pedirDatosPersonales(Alumno &estudiante) {
     cout << "Datos personales ingresados correctamente." << endl;
 }
 
-// Función 3: Pedir las 5 notas de exámenes
+// Función 3: Pedir las 5 notas de exámenes - COMPLETADA POR ALISON
 void pedirNotas(Alumno &estudiante) {
     // PASO 1: Pedir nota del examen 1 (validar que esté entre 0 y 100)
+    do {
+        cout << "Nota del examen 1 (0-100): ";
+        cin >> estudiante.nota1;
+        
+        if (estudiante.nota1 < 0 || estudiante.nota1 > 100) {
+            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        }
+    } while (estudiante.nota1 < 0 || estudiante.nota1 > 100);
+    
     // PASO 2: Pedir nota del examen 2 (validar que esté entre 0 y 100)
+    do {
+        cout << "Nota del examen 2 (0-100): ";
+        cin >> estudiante.nota2;
+        
+        if (estudiante.nota2 < 0 || estudiante.nota2 > 100) {
+            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        }
+    } while (estudiante.nota2 < 0 || estudiante.nota2 > 100);
+    
     // PASO 3: Pedir nota del examen 3 (validar que esté entre 0 y 100)
+    do {
+        cout << "Nota del examen 3 (0-100): ";
+        cin >> estudiante.nota3;
+        
+        if (estudiante.nota3 < 0 || estudiante.nota3 > 100) {
+            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        }
+    } while (estudiante.nota3 < 0 || estudiante.nota3 > 100);
+    
     // PASO 4: Pedir nota del examen 4 (validar que esté entre 0 y 100)
+    do {
+        cout << "Nota del examen 4 (0-100): ";
+        cin >> estudiante.nota4;
+        
+        if (estudiante.nota4 < 0 || estudiante.nota4 > 100) {
+            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        }
+    } while (estudiante.nota4 < 0 || estudiante.nota4 > 100);
+    
     // PASO 5: Pedir nota del examen 5 (validar que esté entre 0 y 100)
+    do {
+        cout << "Nota del examen 5 (0-100): ";
+        cin >> estudiante.nota5;
+        
+        if (estudiante.nota5 < 0 || estudiante.nota5 > 100) {
+            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        }
+    } while (estudiante.nota5 < 0 || estudiante.nota5 > 100);
     
-    cout << "Nota del examen 1 (0-100): ";
-    cin >> estudiante.nota1;
-    // AQUÍ FALTA: validar que esté entre 0 y 100
-    
-    cout << "Nota del examen 2 (0-100): ";
-    cin >> estudiante.nota2;
-    // AQUÍ FALTA: validar que esté entre 0 y 100
-    
-    // COMPLETAR LAS DEMÁS NOTAS...
+    cout << "Todas las notas ingresadas correctamente." << endl;
 }
 
 // Función 4: Calcular el promedio del alumno
@@ -155,11 +191,13 @@ void mostrarTitulo() {
     cout << "======================================" << endl;
 }
 
-// Función 6: Mostrar lista de aprobados
+// Función 6: Mostrar lista de aprobados - COMPLETADA POR ALISON
 void mostrarAprobados(vector<Alumno> &lista) {
     cout << "\n==================== APROBADOS ====================" << endl;
     cout << "Nombre completo          Ciclo    Cédula      Promedio" << endl;
     cout << "----------------------------------------------------" << endl;
+    
+    bool hayAprobados = false;
     
     // PASO 1: Recorrer toda la lista de alumnos
     // PASO 2: Si el alumno aprobó (aprobo == true), mostrarlo
@@ -167,18 +205,25 @@ void mostrarAprobados(vector<Alumno> &lista) {
     
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == true) {
-            // AQUÍ FALTA: mostrar los datos del alumno
             cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
-            // COMPLETAR LA LÍNEA...
+            cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
+            cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            hayAprobados = true;
         }
+    }
+    
+    if (!hayAprobados) {
+        cout << "No hay alumnos aprobados." << endl;
     }
 }
 
-// Función 7: Mostrar lista de reprobados
+// Función 7: Mostrar lista de reprobados - COMPLETADA POR ALISON
 void mostrarReprobados(vector<Alumno> &lista) {
     cout << "\n==================== REPROBADOS ===================" << endl;
     cout << "Nombre completo          Ciclo    Cédula      Promedio" << endl;
     cout << "----------------------------------------------------" << endl;
+    
+    bool hayReprobados = false;
     
     // PASO 1: Recorrer toda la lista de alumnos
     // PASO 2: Si el alumno reprobó (aprobo == false), mostrarlo
@@ -186,8 +231,15 @@ void mostrarReprobados(vector<Alumno> &lista) {
     
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == false) {
-            // AQUÍ FALTA: mostrar los datos del alumno reprobado
+            cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
+            cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
+            cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            hayReprobados = true;
         }
+    }
+    
+    if (!hayReprobados) {
+        cout << "No hay alumnos reprobados." << endl;
     }
 }
 
@@ -238,45 +290,27 @@ int main() {
 // ============================================================================
 
 /*
-TAREAS SIMPLES PARA COMPLETAR:
+ESTADO ACTUAL DEL PROYECTO:
 
-1. En preguntarCantidadAlumnos(): Torti 🔄
-   - Mejorar mensaje de error y formato
-   - Ya funciona pero falta pulir
-
-2. En pedirDatosPersonales(): Juan ✅ COMPLETADO
-   - Función completamente terminada con validaciones
-   - LISTO PARA USAR
-
-3. En pedirNotas(): Alison ❌
-   - Completar las notas que faltan (nota3, nota4, nota5)
-   - Agregar validación: si nota < 0 o nota > 100, mostrar error
-
-4. En calcularPromedio(): Torti ❌
-   - Completar la suma con todas las 5 notas
-   - Ahora solo suma 2 notas
-
-5. En mostrarAprobados() y mostrarReprobados(): Alison ❌
-   - Completar el formato de salida con todos los datos
-   - Falta mostrar ciclo, cédula y promedio formateado
-   
-6. Menu y estilo: Juan ❌
-   - Agregar colores a los mensajes
-   - Hacer la interfaz más bonita
-
-ESTADO ACTUAL:
 ✅ pedirDatosPersonales() - COMPLETADA (Juan)
-✅ preguntarCantidadAlumnos() - FUNCIONA (Torti, falta pulir)
-❌ pedirNotas() - PENDIENTE (Alison)
-❌ calcularPromedio() - PENDIENTE (Torti)
-❌ mostrarAprobados() - PENDIENTE (Alison)
-❌ mostrarReprobados() - PENDIENTE (Alison)
-❌ Mejoras de interfaz - PENDIENTE (Juan)
+   - Función 100% funcional con validaciones
 
-CONSEJOS:
-- Completar una función a la vez
-- Probar el programa después de cada cambio
-- Si algo no funciona, revisar los paréntesis y puntos y comas
-- Usar cout para mostrar mensajes
-- Usar cin para leer datos del usuario
-*/
+✅ pedirNotas() - COMPLETADA (Alison)
+   - Función 100% funcional con validaciones para las 5 notas
+
+✅ mostrarAprobados() - COMPLETADA (Alison)
+   - Función 100% funcional con formato completo
+
+✅ mostrarReprobados() - COMPLETADA (Alison)
+   - Función 100% funcional con formato completo
+
+🔄 preguntarCantidadAlumnos() - FUNCIONA (Torti, falta pulir)
+   - Ya funciona pero falta mejorar el mensaje de error
+
+❌ calcularPromedio() - PENDIENTE (Torti) ⚠️ URGENTE
+   - Solo suma 2 de 5 notas, debe sumar las 5
+   - SIN ESTA FUNCIÓN EL PROGRAMA NO FUNCIONA BIEN
+
+❌ Mejoras de interfaz - PENDIENTE (Juan)
+   - Agregar colores y estilo
+
