@@ -2,175 +2,341 @@
 #include <string>
 #include <iomanip>
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
-// ============================================================================
-// ESTRUCTURA SIMPLE PARA GUARDAR DATOS DE UN ALUMNO
-// ============================================================================
+// Constantes para colores
+const int VERDE = 10;
+const int ROJO = 12;
+const int BLANCO = 15;
+const int AMARILLO = 14;
+const int CYAN = 11;
+
+// Función para cambiar el color del texto
+void setColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
 
 struct Alumno {
-    // Información personal del alumno
     string nombre1;
     string apellido1;
     string apellido2;
     int ciclo;
     int cedula;
-    
-    // Notas de los 5 exámenes
     float nota1;
     float nota2;
     float nota3;
     float nota4;
     float nota5;
-    
-    // Promedio y si aprobó o no
     float promedio;
-    bool aprobo;  // true = aprobado, false = reprobado
+    bool aprobo;
 };
 
-// ============================================================================
-// FUNCIONES BÁSICAS - COMPLETAR CADA UNA
-// ============================================================================
-
-// Función 1: Preguntar cuántos alumnos evaluar
 int preguntarCantidadAlumnos() {
+    string cantidadStr;
     int cantidad;
     
-    do {
-         cout << "¿Cuántos alumnos desea evaluar? ";
-        cin >> cantidad;
-
-        if (cantidad <= 0) {
-          cout << "Error, tienes que ingresar minimo un alumno";
-
+    cout << "Cuantos alumnos desea evaluar? ";
+    cin >> cantidadStr;
+    
+    cantidad = 1;
+    for (char c : cantidadStr) {
+        if (isdigit(c)) {
+            cantidad = atoi(cantidadStr.c_str());
+            break;
         }
-           
-    } while (cantidad <=0);
+    }
     
+    if (cantidad <= 0) cantidad = 1;
     
-  
+    cout << "Se evaluaran " << cantidad << " alumno(s)." << endl;
     return cantidad;
 }
 
-// Función 2: Pedir datos personales de un alumno - COMPLETADA POR JUAN
 void pedirDatosPersonales(Alumno &estudiante) {
-    // PASO 1: Pedir primer nombre y guardarlo en estudiante.nombre1
-    cout << "Primer nombre: ";
+    setColor(CYAN);
+    cout << "\n==================================================\n";
+    cout << "         DATOS PERSONALES\n";
+    cout << "==================================================\n";
+    
+    cout << "\nPrimer nombre: ";
     cin >> estudiante.nombre1;
+    cout << "OK" << endl;
     
-    // Validación básica para nombre (no debe estar vacío)
-    while (estudiante.nombre1.empty()) {
-        cout << "Error: El nombre no puede estar vacío. Ingrese el primer nombre: ";
-        cin >> estudiante.nombre1;
-    }
-    
-    // PASO 2: Pedir primer apellido y guardarlo en estudiante.apellido1
-    cout << "Primer apellido: ";
+    cout << "\nPrimer apellido: ";
     cin >> estudiante.apellido1;
+    cout << "OK" << endl;
     
-    // Validación básica para primer apellido
-    while (estudiante.apellido1.empty()) {
-        cout << "Error: El apellido no puede estar vacío. Ingrese el primer apellido: ";
-        cin >> estudiante.apellido1;
-    }
-    
-    // PASO 3: Pedir segundo apellido y guardarlo en estudiante.apellido2
-    cout << "Segundo apellido: ";
+    cout << "\nSegundo apellido: ";
     cin >> estudiante.apellido2;
+    cout << "OK" << endl;
     
-    // Validación básica para segundo apellido
-    while (estudiante.apellido2.empty()) {
-        cout << "Error: El segundo apellido no puede estar vacío. Ingrese el segundo apellido: ";
-        cin >> estudiante.apellido2;
+    // Ciclo con validación que vuelve a preguntar
+    string cicloStr;
+    while (true) {
+        cout << "\nCiclo (1-12): ";
+        cin >> cicloStr;
+        
+        bool esValido = true;
+        for (char c : cicloStr) {
+            if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
+        }
+        
+        if (esValido && !cicloStr.empty()) {
+            int temp = atoi(cicloStr.c_str());
+            if (temp >= 1 && temp <= 12) {
+                estudiante.ciclo = temp;
+                cout << "Ciclo: " << estudiante.ciclo << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: El ciclo debe estar entre 1 y 12." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(CYAN);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(CYAN);
+        }
     }
     
-    // PASO 4: Pedir ciclo y guardarlo en estudiante.ciclo
-    do {
-        cout << "Ciclo (1-12): ";
-        cin >> estudiante.ciclo;
+    // Cédula con validación que vuelve a preguntar
+    string cedulaStr;
+    while (true) {
+        cout << "\nCedula: ";
+        cin >> cedulaStr;
         
-        if (estudiante.ciclo < 1 || estudiante.ciclo > 12) {
-            cout << "Error: El ciclo debe estar entre 1 y 12." << endl;
+        bool esValido = true;
+        for (char c : cedulaStr) {
+            if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
         }
-    } while (estudiante.ciclo < 1 || estudiante.ciclo > 12);
-    
-    // PASO 5: Pedir cédula y guardarla en estudiante.cedula
-    do {
-        cout << "Cédula (número positivo): ";
-        cin >> estudiante.cedula;
         
-        if (estudiante.cedula <= 0) {
-            cout << "Error: La cédula debe ser un número positivo." << endl;
+        if (esValido && !cedulaStr.empty()) {
+            int temp = atoi(cedulaStr.c_str());
+            if (temp > 0) {
+                estudiante.cedula = temp;
+                cout << "Cedula: " << estudiante.cedula << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La cedula debe ser un numero positivo." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(CYAN);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(CYAN);
         }
-    } while (estudiante.cedula <= 0);
-    
-    cout << "Datos personales ingresados correctamente." << endl;
+    }
+    setColor(BLANCO);
 }
 
-// Función 3: Pedir las 5 notas de exámenes - COMPLETADA POR ALISON
 void pedirNotas(Alumno &estudiante) {
-    // PASO 1: Pedir nota del examen 1 (validar que esté entre 0 y 100)
-    do {
-        cout << "Nota del examen 1 (0-100): ";
-        cin >> estudiante.nota1;
-        
-        if (estudiante.nota1 < 0 || estudiante.nota1 > 100) {
-            cout << "Error: La nota debe estar entre 0 y 100." << endl;
-        }
-    } while (estudiante.nota1 < 0 || estudiante.nota1 > 100);
+    cout << "\n==================================================\n";
+    cout << "           NOTAS\n";
+    cout << "==================================================\n";
     
-    // PASO 2: Pedir nota del examen 2 (validar que esté entre 0 y 100)
-    do {
-        cout << "Nota del examen 2 (0-100): ";
-        cin >> estudiante.nota2;
-        
-        if (estudiante.nota2 < 0 || estudiante.nota2 > 100) {
-            cout << "Error: La nota debe estar entre 0 y 100." << endl;
-        }
-    } while (estudiante.nota2 < 0 || estudiante.nota2 > 100);
+    string notaStr;
     
-    // PASO 3: Pedir nota del examen 3 (validar que esté entre 0 y 100)
-    do {
-        cout << "Nota del examen 3 (0-100): ";
-        cin >> estudiante.nota3;
+    // Nota 1 con validación
+    while (true) {
+        cout << "\nNota 1 (0-100): ";
+        cin >> notaStr;
         
-        if (estudiante.nota3 < 0 || estudiante.nota3 > 100) {
-            cout << "Error: La nota debe estar entre 0 y 100." << endl;
-        }
-    } while (estudiante.nota3 < 0 || estudiante.nota3 > 100);
-    
-    // PASO 4: Pedir nota del examen 4 (validar que esté entre 0 y 100)
-    do {
-        cout << "Nota del examen 4 (0-100): ";
-        cin >> estudiante.nota4;
+        bool esValido = true;
+        bool tienePunto = false;
         
-        if (estudiante.nota4 < 0 || estudiante.nota4 > 100) {
-            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        for (char c : notaStr) {
+            if (c == '.' && !tienePunto) {
+                tienePunto = true;
+            } else if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
         }
-    } while (estudiante.nota4 < 0 || estudiante.nota4 > 100);
-    
-    // PASO 5: Pedir nota del examen 5 (validar que esté entre 0 y 100)
-    do {
-        cout << "Nota del examen 5 (0-100): ";
-        cin >> estudiante.nota5;
         
-        if (estudiante.nota5 < 0 || estudiante.nota5 > 100) {
-            cout << "Error: La nota debe estar entre 0 y 100." << endl;
+        if (esValido && !notaStr.empty()) {
+            float temp = atof(notaStr.c_str());
+            if (temp >= 0 && temp <= 100) {
+                estudiante.nota1 = temp;
+                cout << "Nota 1: " << estudiante.nota1 << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
-    } while (estudiante.nota5 < 0 || estudiante.nota5 > 100);
+    }
     
-    cout << "Todas las notas ingresadas correctamente." << endl;
+    // Nota 2 con validación
+    while (true) {
+        cout << "\nNota 2 (0-100): ";
+        cin >> notaStr;
+        
+        bool esValido = true;
+        bool tienePunto = false;
+        
+        for (char c : notaStr) {
+            if (c == '.' && !tienePunto) {
+                tienePunto = true;
+            } else if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
+        }
+        
+        if (esValido && !notaStr.empty()) {
+            float temp = atof(notaStr.c_str());
+            if (temp >= 0 && temp <= 100) {
+                estudiante.nota2 = temp;
+                cout << "Nota 2: " << estudiante.nota2 << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
+        }
+    }
+    
+    // Nota 3 con validación
+    while (true) {
+        cout << "\nNota 3 (0-100): ";
+        cin >> notaStr;
+        
+        bool esValido = true;
+        bool tienePunto = false;
+        
+        for (char c : notaStr) {
+            if (c == '.' && !tienePunto) {
+                tienePunto = true;
+            } else if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
+        }
+        
+        if (esValido && !notaStr.empty()) {
+            float temp = atof(notaStr.c_str());
+            if (temp >= 0 && temp <= 100) {
+                estudiante.nota3 = temp;
+                cout << "Nota 3: " << estudiante.nota3 << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
+        }
+    }
+    
+    // Nota 4 con validación
+    while (true) {
+        cout << "\nNota 4 (0-100): ";
+        cin >> notaStr;
+        
+        bool esValido = true;
+        bool tienePunto = false;
+        
+        for (char c : notaStr) {
+            if (c == '.' && !tienePunto) {
+                tienePunto = true;
+            } else if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
+        }
+        
+        if (esValido && !notaStr.empty()) {
+            float temp = atof(notaStr.c_str());
+            if (temp >= 0 && temp <= 100) {
+                estudiante.nota4 = temp;
+                cout << "Nota 4: " << estudiante.nota4 << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
+        }
+    }
+    
+    // Nota 5 con validación
+    while (true) {
+        cout << "\nNota 5 (0-100): ";
+        cin >> notaStr;
+        
+        bool esValido = true;
+        bool tienePunto = false;
+        
+        for (char c : notaStr) {
+            if (c == '.' && !tienePunto) {
+                tienePunto = true;
+            } else if (!isdigit(c)) {
+                esValido = false;
+                break;
+            }
+        }
+        
+        if (esValido && !notaStr.empty()) {
+            float temp = atof(notaStr.c_str());
+            if (temp >= 0 && temp <= 100) {
+                estudiante.nota5 = temp;
+                cout << "Nota 5: " << estudiante.nota5 << endl;
+                break;
+            } else {
+                setColor(ROJO);
+                cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
+                cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
+            }
+        } else {
+            setColor(ROJO);
+            cout << "ERROR: Debe ingresar un numero valido." << endl;
+            cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
+        }
+    }
 }
 
-// Función 4: Calcular el promedio del alumno
 void calcularPromedio(Alumno &estudiante) {
-    // PASO 1: Sumar las 5 notas
-    // PASO 2: Dividir la suma entre 5
-    // PASO 3: Guardar el resultado en estudiante.promedio
-    // PASO 4: Si el promedio es >= 70, poner estudiante.aprobo = true
-    //         Si el promedio es < 70, poner estudiante.aprobo = false
-    
-    float suma = estudiante.nota1 + estudiante.nota2; // COMPLETAR SUMA
+    float suma = estudiante.nota1 + estudiante.nota2 + estudiante.nota3 + estudiante.nota4 + estudiante.nota5;
     estudiante.promedio = suma / 5.0;
     
     if (estudiante.promedio >= 70.0) {
@@ -178,36 +344,58 @@ void calcularPromedio(Alumno &estudiante) {
     } else {
         estudiante.aprobo = false;
     }
-}
-
-// Función 5: Mostrar título bonito
-void mostrarTitulo() {
-    // PASO 1: Mostrar línea de símbolos (============================)
-    // PASO 2: Mostrar el título del programa
-    // PASO 3: Mostrar otra línea de símbolos
     
-    cout << "======================================" << endl;
-    cout << "    SISTEMA DE EVALUACIÓN ACADÉMICA   " << endl;
-    cout << "======================================" << endl;
+    cout << "\n========================================\n";
+    cout << "RESULTADO FINAL:\n";
+    cout << "Promedio: " << fixed << setprecision(2) << estudiante.promedio;
+    
+    if (estudiante.aprobo) {
+        setColor(VERDE);
+        cout << " - APROBADO" << endl;
+        setColor(BLANCO);
+    } else {
+        setColor(ROJO);
+        cout << " - REPROBADO" << endl;
+        setColor(BLANCO);
+    }
+    cout << "========================================\n";
 }
 
-// Función 6: Mostrar lista de aprobados - COMPLETADA POR ALISON
+void mostrarTitulo() {
+    setColor(CYAN);
+    cout << "\n\n";
+    cout << "============================================================" << endl;
+    cout << "||                                                      ||" << endl;
+    cout << "||        SISTEMA DE EVALUACION ACADEMICA              ||" << endl;
+    cout << "||                                                      ||" << endl;
+    cout << "============================================================" << endl;
+    setColor(AMARILLO);
+    cout << "\n            Version 1.0 - Sistema Profesional" << endl;
+    cout << "          Desarrollado por: Juan, Alison y Torti" << endl;
+    setColor(BLANCO);
+    cout << "\n                 Bienvenido al sistema!" << endl;
+    cout << "\n\n";
+}
+
 void mostrarAprobados(vector<Alumno> &lista) {
-    cout << "\n==================== APROBADOS ====================" << endl;
-    cout << "Nombre completo          Ciclo    Cédula      Promedio" << endl;
+    cout << "\n============================================================" << endl;
+    setColor(VERDE);
+    cout << "  ESTUDIANTES APROBADOS" << endl;
+    setColor(BLANCO);
+    cout << "============================================================" << endl;
+    
+    cout << "Nombre completo          Ciclo    Cedula      Promedio" << endl;
     cout << "----------------------------------------------------" << endl;
     
     bool hayAprobados = false;
     
-    // PASO 1: Recorrer toda la lista de alumnos
-    // PASO 2: Si el alumno aprobó (aprobo == true), mostrarlo
-    // PASO 3: Formato: > María Pérez Gómez (2) 20182345 78.40
-    
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == true) {
+            setColor(VERDE);
             cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
             cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
             cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            setColor(BLANCO);
             hayAprobados = true;
         }
     }
@@ -217,23 +405,25 @@ void mostrarAprobados(vector<Alumno> &lista) {
     }
 }
 
-// Función 7: Mostrar lista de reprobados - COMPLETADA POR ALISON
 void mostrarReprobados(vector<Alumno> &lista) {
-    cout << "\n==================== REPROBADOS ===================" << endl;
-    cout << "Nombre completo          Ciclo    Cédula      Promedio" << endl;
+    cout << "\n============================================================" << endl;
+    setColor(ROJO);
+    cout << "  ESTUDIANTES REPROBADOS" << endl;
+    setColor(BLANCO);
+    cout << "============================================================" << endl;
+    
+    cout << "Nombre completo          Ciclo    Cedula      Promedio" << endl;
     cout << "----------------------------------------------------" << endl;
     
     bool hayReprobados = false;
     
-    // PASO 1: Recorrer toda la lista de alumnos
-    // PASO 2: Si el alumno reprobó (aprobo == false), mostrarlo
-    // PASO 3: Mismo formato que los aprobados
-    
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == false) {
+            setColor(ROJO);
             cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
             cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
             cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            setColor(BLANCO);
             hayReprobados = true;
         }
     }
@@ -243,45 +433,32 @@ void mostrarReprobados(vector<Alumno> &lista) {
     }
 }
 
-// ============================================================================
-// FUNCIÓN PRINCIPAL - AQUÍ EMPIEZA EL PROGRAMA
-// ============================================================================
-
 int main() {
-    // PASO 1: Mostrar título del programa
     mostrarTitulo();
     
-    // PASO 2: Preguntar cuántos alumnos evaluar
     int cantidad = preguntarCantidadAlumnos();
     
-    // PASO 3: Crear lista para guardar todos los alumnos
     vector<Alumno> listaAlumnos(cantidad);
     
-    // PASO 4: Para cada alumno, pedir sus datos
     for (int i = 0; i < cantidad; i++) {
-        cout << "\n--- ALUMNO #" << (i + 1) << " ---" << endl;
+        cout << "\n============================================================" << endl;
+        cout << "           ALUMNO #" << (i + 1) << " DE " << cantidad << endl;
+        cout << "============================================================" << endl;
         
-        // Pedir datos personales
         pedirDatosPersonales(listaAlumnos[i]);
-        
-        // Pedir las 5 notas
         pedirNotas(listaAlumnos[i]);
-        
-        // Calcular promedio y si aprobó
         calcularPromedio(listaAlumnos[i]);
         
-        cout << "Promedio: " << listaAlumnos[i].promedio << endl;
-        if (listaAlumnos[i].aprobo) {
-            cout << "Estado: APROBADO" << endl;
-        } else {
-            cout << "Estado: REPROBADO" << endl;
-        }
+        cout << "\n" << endl;
     }
     
-    // PASO 5: Mostrar resultados finales
     mostrarAprobados(listaAlumnos);
     mostrarReprobados(listaAlumnos);
     
+    cout << "\nGracias por usar el Sistema!" << endl;
+    cout << "Presiona Enter para salir...";
+    cin.ignore();
+    cin.get();
+    
     return 0;
 }
-
