@@ -364,7 +364,7 @@ void mostrarTitulo() {
     cout << "\n\n";
     cout << "============================================================" << endl;
     cout << "||                                                      ||" << endl;
-    cout << "||        SISTEMA DE EVALUACION ACADEMICA              ||" << endl;
+    cout << "||        SISTEMA DE EVALUACION ACADEMICA               ||" << endl;
     cout << "||                                                      ||" << endl;
     cout << "============================================================" << endl;
     setColor(AMARILLO);
