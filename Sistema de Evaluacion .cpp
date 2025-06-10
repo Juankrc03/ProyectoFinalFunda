@@ -55,26 +55,37 @@ int preguntarCantidadAlumnos() {
 }
 
 void pedirDatosPersonales(Alumno &estudiante) {
-    cout << "\n==================================================\n";
+    cout << "\n";
+    setColor(CYAN);
+    cout << "==================================================\n";
     cout << "         DATOS PERSONALES\n";
     cout << "==================================================\n";
+    setColor(BLANCO);
     
+    setColor(CYAN);
     cout << "\nPrimer nombre: ";
+    setColor(BLANCO);
     cin >> estudiante.nombre1;
     cout << "OK" << endl;
     
+    setColor(CYAN);
     cout << "\nPrimer apellido: ";
+    setColor(BLANCO);
     cin >> estudiante.apellido1;
     cout << "OK" << endl;
     
+    setColor(CYAN);
     cout << "\nSegundo apellido: ";
+    setColor(BLANCO);
     cin >> estudiante.apellido2;
     cout << "OK" << endl;
     
     // Ciclo con validación que vuelve a preguntar
     string cicloStr;
     while (true) {
+        setColor(CYAN);
         cout << "\nCiclo (1-12): ";
+        setColor(BLANCO);
         cin >> cicloStr;
         
         bool esValido = true;
@@ -89,7 +100,9 @@ void pedirDatosPersonales(Alumno &estudiante) {
             int temp = atoi(cicloStr.c_str());
             if (temp >= 1 && temp <= 12) {
                 estudiante.ciclo = temp;
+                setColor(CYAN);
                 cout << "Ciclo: " << estudiante.ciclo << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -108,7 +121,9 @@ void pedirDatosPersonales(Alumno &estudiante) {
     // Cédula con validación que vuelve a preguntar
     string cedulaStr;
     while (true) {
+        setColor(CYAN);
         cout << "\nCedula: ";
+        setColor(BLANCO);
         cin >> cedulaStr;
         
         bool esValido = true;
@@ -123,7 +138,9 @@ void pedirDatosPersonales(Alumno &estudiante) {
             int temp = atoi(cedulaStr.c_str());
             if (temp > 0) {
                 estudiante.cedula = temp;
+                setColor(CYAN);
                 cout << "Cedula: " << estudiante.cedula << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
