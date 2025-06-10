@@ -285,32 +285,3 @@ int main() {
     return 0;
 }
 
-// ============================================================================
-// INSTRUCCIONES PARA COMPLETAR EL CÓDIGO:
-// ============================================================================
-
-/*
-ESTADO ACTUAL DEL PROYECTO:
-
-✅ pedirDatosPersonales() - COMPLETADA (Juan)
-   - Función 100% funcional con validaciones
-
-✅ pedirNotas() - COMPLETADA (Alison)
-   - Función 100% funcional con validaciones para las 5 notas
-
-✅ mostrarAprobados() - COMPLETADA (Alison)
-   - Función 100% funcional con formato completo
-
-✅ mostrarReprobados() - COMPLETADA (Alison)
-   - Función 100% funcional con formato completo
-
-🔄 preguntarCantidadAlumnos() - FUNCIONA (Torti, falta pulir)
-   - Ya funciona pero falta mejorar el mensaje de error
-
-❌ calcularPromedio() - PENDIENTE (Torti) ⚠️ URGENTE
-   - Solo suma 2 de 5 notas, debe sumar las 5
-   - SIN ESTA FUNCIÓN EL PROGRAMA NO FUNCIONA BIEN
-
-❌ Mejoras de interfaz - PENDIENTE (Juan)
-   - Agregar colores y estilo
-
