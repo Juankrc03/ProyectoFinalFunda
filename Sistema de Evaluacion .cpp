@@ -5,6 +5,19 @@
 #include <windows.h>
 using namespace std;
 
+// Constantes para colores
+const int VERDE = 10;
+const int ROJO = 12;
+const int BLANCO = 15;
+const int AMARILLO = 14;
+const int CYAN = 11;
+
+// Función para cambiar el color del texto
+void setColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
 struct Alumno {
     string nombre1;
     string apellido1;
@@ -79,12 +92,16 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 cout << "Ciclo: " << estudiante.ciclo << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: El ciclo debe estar entre 1 y 12." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
     
@@ -109,12 +126,16 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 cout << "Cedula: " << estudiante.cedula << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La cedula debe ser un numero positivo." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
 }
@@ -150,12 +171,16 @@ void pedirNotas(Alumno &estudiante) {
                 cout << "Nota 1: " << estudiante.nota1 << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
     
@@ -183,12 +208,16 @@ void pedirNotas(Alumno &estudiante) {
                 cout << "Nota 2: " << estudiante.nota2 << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
     
@@ -216,12 +245,16 @@ void pedirNotas(Alumno &estudiante) {
                 cout << "Nota 3: " << estudiante.nota3 << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
     
@@ -249,12 +282,16 @@ void pedirNotas(Alumno &estudiante) {
                 cout << "Nota 4: " << estudiante.nota4 << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
     
@@ -282,12 +319,16 @@ void pedirNotas(Alumno &estudiante) {
                 cout << "Nota 5: " << estudiante.nota5 << endl;
                 break;
             } else {
+                setColor(ROJO);
                 cout << "ERROR: La nota debe estar entre 0 y 100." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
+                setColor(BLANCO);
             }
         } else {
+            setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
+            setColor(BLANCO);
         }
     }
 }
@@ -305,30 +346,40 @@ void calcularPromedio(Alumno &estudiante) {
     cout << "\n========================================\n";
     cout << "RESULTADO FINAL:\n";
     cout << "Promedio: " << fixed << setprecision(2) << estudiante.promedio;
+    
     if (estudiante.aprobo) {
+        setColor(VERDE);
         cout << " - APROBADO" << endl;
+        setColor(BLANCO);
     } else {
+        setColor(ROJO);
         cout << " - REPROBADO" << endl;
+        setColor(BLANCO);
     }
     cout << "========================================\n";
 }
 
 void mostrarTitulo() {
+    setColor(CYAN);
     cout << "\n\n";
     cout << "============================================================" << endl;
     cout << "||                                                      ||" << endl;
     cout << "||        SISTEMA DE EVALUACION ACADEMICA              ||" << endl;
     cout << "||                                                      ||" << endl;
     cout << "============================================================" << endl;
+    setColor(AMARILLO);
     cout << "\n            Version 1.0 - Sistema Profesional" << endl;
     cout << "          Desarrollado por: Juan, Alison y Torti" << endl;
+    setColor(BLANCO);
     cout << "\n                 Bienvenido al sistema!" << endl;
     cout << "\n\n";
 }
 
 void mostrarAprobados(vector<Alumno> &lista) {
     cout << "\n============================================================" << endl;
+    setColor(VERDE);
     cout << "  ESTUDIANTES APROBADOS" << endl;
+    setColor(BLANCO);
     cout << "============================================================" << endl;
     
     cout << "Nombre completo          Ciclo    Cedula      Promedio" << endl;
@@ -338,9 +389,11 @@ void mostrarAprobados(vector<Alumno> &lista) {
     
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == true) {
+            setColor(VERDE);
             cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
             cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
             cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            setColor(BLANCO);
             hayAprobados = true;
         }
     }
@@ -352,7 +405,9 @@ void mostrarAprobados(vector<Alumno> &lista) {
 
 void mostrarReprobados(vector<Alumno> &lista) {
     cout << "\n============================================================" << endl;
+    setColor(ROJO);
     cout << "  ESTUDIANTES REPROBADOS" << endl;
+    setColor(BLANCO);
     cout << "============================================================" << endl;
     
     cout << "Nombre completo          Ciclo    Cedula      Promedio" << endl;
@@ -362,9 +417,11 @@ void mostrarReprobados(vector<Alumno> &lista) {
     
     for (int i = 0; i < lista.size(); i++) {
         if (lista[i].aprobo == false) {
+            setColor(ROJO);
             cout << "> " << lista[i].nombre1 << " " << lista[i].apellido1 << " " << lista[i].apellido2;
             cout << " (" << lista[i].ciclo << ") " << lista[i].cedula;
             cout << " " << fixed << setprecision(2) << lista[i].promedio << endl;
+            setColor(BLANCO);
             hayReprobados = true;
         }
     }
