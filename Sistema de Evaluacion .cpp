@@ -55,7 +55,6 @@ int preguntarCantidadAlumnos() {
 }
 
 void pedirDatosPersonales(Alumno &estudiante) {
-    setColor(CYAN);
     cout << "\n==================================================\n";
     cout << "         DATOS PERSONALES\n";
     cout << "==================================================\n";
@@ -96,13 +95,13 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 setColor(ROJO);
                 cout << "ERROR: El ciclo debe estar entre 1 y 12." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
-                setColor(CYAN);
+                setColor(BLANCO);
             }
         } else {
             setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
-            setColor(CYAN);
+            setColor(BLANCO);
         }
     }
     
@@ -130,28 +129,32 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 setColor(ROJO);
                 cout << "ERROR: La cedula debe ser un numero positivo." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
-                setColor(CYAN);
+                setColor(BLANCO);
             }
         } else {
             setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
-            setColor(CYAN);
+            setColor(BLANCO);
         }
     }
-    setColor(BLANCO);
 }
 
 void pedirNotas(Alumno &estudiante) {
-    cout << "\n==================================================\n";
+    cout << "\n";
+    setColor(AMARILLO);  // Cambiar a amarillo
+    cout << "==================================================\n";
     cout << "           NOTAS\n";
     cout << "==================================================\n";
+    setColor(BLANCO);    // Volver a blanco para el resto
     
     string notaStr;
     
     // Nota 1 con validación
     while (true) {
+        setColor(AMARILLO);
         cout << "\nNota 1 (0-100): ";
+        setColor(BLANCO);
         cin >> notaStr;
         
         bool esValido = true;
@@ -170,7 +173,9 @@ void pedirNotas(Alumno &estudiante) {
             float temp = atof(notaStr.c_str());
             if (temp >= 0 && temp <= 100) {
                 estudiante.nota1 = temp;
+                setColor(AMARILLO);
                 cout << "Nota 1: " << estudiante.nota1 << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -188,7 +193,9 @@ void pedirNotas(Alumno &estudiante) {
     
     // Nota 2 con validación
     while (true) {
+        setColor(AMARILLO);
         cout << "\nNota 2 (0-100): ";
+        setColor(BLANCO);
         cin >> notaStr;
         
         bool esValido = true;
@@ -207,7 +214,9 @@ void pedirNotas(Alumno &estudiante) {
             float temp = atof(notaStr.c_str());
             if (temp >= 0 && temp <= 100) {
                 estudiante.nota2 = temp;
+                setColor(AMARILLO);
                 cout << "Nota 2: " << estudiante.nota2 << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -225,7 +234,9 @@ void pedirNotas(Alumno &estudiante) {
     
     // Nota 3 con validación
     while (true) {
+        setColor(AMARILLO);
         cout << "\nNota 3 (0-100): ";
+        setColor(BLANCO);
         cin >> notaStr;
         
         bool esValido = true;
@@ -244,7 +255,9 @@ void pedirNotas(Alumno &estudiante) {
             float temp = atof(notaStr.c_str());
             if (temp >= 0 && temp <= 100) {
                 estudiante.nota3 = temp;
+                setColor(AMARILLO);
                 cout << "Nota 3: " << estudiante.nota3 << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -262,7 +275,9 @@ void pedirNotas(Alumno &estudiante) {
     
     // Nota 4 con validación
     while (true) {
+        setColor(AMARILLO);
         cout << "\nNota 4 (0-100): ";
+        setColor(BLANCO);
         cin >> notaStr;
         
         bool esValido = true;
@@ -281,7 +296,9 @@ void pedirNotas(Alumno &estudiante) {
             float temp = atof(notaStr.c_str());
             if (temp >= 0 && temp <= 100) {
                 estudiante.nota4 = temp;
+                setColor(AMARILLO);
                 cout << "Nota 4: " << estudiante.nota4 << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -299,7 +316,9 @@ void pedirNotas(Alumno &estudiante) {
     
     // Nota 5 con validación
     while (true) {
+        setColor(AMARILLO);
         cout << "\nNota 5 (0-100): ";
+        setColor(BLANCO);
         cin >> notaStr;
         
         bool esValido = true;
@@ -318,7 +337,9 @@ void pedirNotas(Alumno &estudiante) {
             float temp = atof(notaStr.c_str());
             if (temp >= 0 && temp <= 100) {
                 estudiante.nota5 = temp;
+                setColor(AMARILLO);
                 cout << "Nota 5: " << estudiante.nota5 << endl;
+                setColor(BLANCO);
                 break;
             } else {
                 setColor(ROJO);
@@ -366,7 +387,7 @@ void mostrarTitulo() {
     cout << "\n\n";
     cout << "============================================================" << endl;
     cout << "||                                                      ||" << endl;
-    cout << "||        SISTEMA DE EVALUACION ACADEMICA              ||" << endl;
+    cout << "||        SISTEMA DE EVALUACION ACADEMICA               ||" << endl;
     cout << "||                                                      ||" << endl;
     cout << "============================================================" << endl;
     setColor(AMARILLO);
