@@ -55,6 +55,7 @@ int preguntarCantidadAlumnos() {
 }
 
 void pedirDatosPersonales(Alumno &estudiante) {
+    setColor(CYAN);
     cout << "\n==================================================\n";
     cout << "         DATOS PERSONALES\n";
     cout << "==================================================\n";
@@ -95,13 +96,13 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 setColor(ROJO);
                 cout << "ERROR: El ciclo debe estar entre 1 y 12." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
-                setColor(BLANCO);
+                setColor(CYAN);
             }
         } else {
             setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
-            setColor(BLANCO);
+            setColor(CYAN);
         }
     }
     
@@ -129,15 +130,16 @@ void pedirDatosPersonales(Alumno &estudiante) {
                 setColor(ROJO);
                 cout << "ERROR: La cedula debe ser un numero positivo." << endl;
                 cout << "Por favor, intente nuevamente." << endl;
-                setColor(BLANCO);
+                setColor(CYAN);
             }
         } else {
             setColor(ROJO);
             cout << "ERROR: Debe ingresar un numero valido." << endl;
             cout << "Por favor, intente nuevamente." << endl;
-            setColor(BLANCO);
+            setColor(CYAN);
         }
     }
+    setColor(BLANCO);
 }
 
 void pedirNotas(Alumno &estudiante) {
